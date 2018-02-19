@@ -13,8 +13,12 @@ set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 ## Always use fancy mode when invoking pipenv shell
 #set -x PIPENV_SHELL_FANCY 1
 
+# ANDROID configuration
 set -x ANDROID_PATH $HOME/Android/Sdk
 set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
+
+# VAGRANT
+set VAGRANT_DEFAULT_PROVIDER virtualbox
 
 ## Abbreviations
 abbr -a gcam git commit -a -m
