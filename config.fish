@@ -1,5 +1,5 @@
 ## Added virtualenv support to your shell
-eval (python -m virtualfish compat_aliases auto_activation)
+#eval (python -m virtualfish compat_aliases auto_activation)
 
 ## Global Export PATH
 set -gx PATH $PATH ~/.local/bin /sbin
