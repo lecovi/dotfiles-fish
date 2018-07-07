@@ -12,8 +12,12 @@ set -x WORKON_HOME ~/.virtualenvs
 set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 ## Always use fancy mode when invoking pipenv shell
 #set -x PIPENV_SHELL_FANCY 1
+set -x VAGRANT_DEFAULT_PROVIDER virtualbox
+# ANDROID_HOME enviroment variable
+set -x ANDROID_HOME ~/Android/Sdk
+set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
 
-## Abbreviations
+# Abbreviations
 abbr -a gcam git commit -a -m
 abbr -a gcl git clone --recursive
 abbr -a sdu sudo dnf update
