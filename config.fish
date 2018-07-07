@@ -1,5 +1,5 @@
 ## Added virtualenv support to your shell
-eval (python -m virtualfish compat_aliases auto_activation)
+#eval (python -m virtualfish compat_aliases auto_activation)
 
 ## Global Export PATH
 set -gx PATH $PATH ~/.local/bin /sbin
@@ -17,7 +17,6 @@ set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 set -x ANDROID_HOME ~/Android/Sdk
 set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
 
-# Abbreviations
 abbr -a gcam git commit -a -m
 abbr -a gcl git clone --recursive
 abbr -a sdu sudo dnf update
