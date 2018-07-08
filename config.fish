@@ -14,8 +14,8 @@ set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 #set -x PIPENV_SHELL_FANCY 1
 set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 # ANDROID_HOME enviroment variable
-set -x ANDROID_HOME ~/Android/Sdk
-set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
+#set -x ANDROID_HOME ~/Android/Sdk
+#set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
 
 abbr -a gcam git commit -a -m
 abbr -a gcl git clone --recursive
