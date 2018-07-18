@@ -18,6 +18,7 @@ set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 #set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
 
 abbr -a gcam git commit -a -m
+abbr -a gcm git commit -m
 abbr -a gcl git clone --recursive
 abbr -a sdu sudo dnf update
 abbr -a sdi sudo dnf install
