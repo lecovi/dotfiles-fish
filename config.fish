@@ -12,6 +12,8 @@ set -x WORKON_HOME ~/.virtualenvs
 set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 ## Always use fancy mode when invoking pipenv shell
 #set -x PIPENV_SHELL_FANCY 1
+## Set this to have .venv/ directory inside project
+#set -x PIPENV_VENV_IN_PROJECT 1
 set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 # ANDROID_HOME enviroment variable
 #set -x ANDROID_HOME ~/Android/Sdk
