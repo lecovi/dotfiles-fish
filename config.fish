@@ -28,7 +28,10 @@ abbr -a sds sudo dnf search
 abbr -a spo sudo poweroff
 abbr -a pei pipenv install --three
 abbr -a per pipenv run
+abbr -a prpm pipenv run python manage.py
 
 #eval (pipenv --completion)
 alias vim="nvim"
 alias vi="nvim"
+
+bash ~/.config/fish/start_tmux_session.sh
