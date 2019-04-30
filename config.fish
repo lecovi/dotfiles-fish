@@ -35,3 +35,22 @@ alias vim="nvim"
 alias vi="nvim"
 
 bash ~/.config/fish/start_tmux_session.sh
+
+# Kawasaki Theme customization by lecovi
+set -g theme_display_rw no
+set -g theme_display_time yes
+set -g theme_display_group no
+set -g theme_color_prompt normal
+set -g theme_color_time yellow
+set -g theme_color_virtualenv bryellow
+set -g theme_color_user FF0000
+set -g theme_color_group FF0000
+set -g theme_color_host brpurple
+set -g theme_color_separator brpurple
+set -g __fish_git_prompt_color_branch brgreen
+set -g theme_display_time_format '+%H:%M:%S'
+set -g theme_prompt_userhost_separator '@'
+set -g __fish_git_prompt_char_branch_begin         ''
+set -g __fish_git_prompt_char_branch_end           ''
+set -g __fish_git_prompt_color_branch_begin        bryellow
+set -g __fish_git_prompt_color_branch_end          bryellow
