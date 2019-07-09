@@ -1,3 +1,4 @@
+umask 022
 ## Added virtualenv support to your shell
 #eval (python -m virtualfish compat_aliases auto_activation)
 
