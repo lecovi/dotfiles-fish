@@ -3,7 +3,7 @@ umask 022
 #eval (python -m virtualfish compat_aliases auto_activation)
 
 ## Global Export PATH
-set -gx PATH $PATH ~/.local/bin /sbin
+set -gx PATH $PATH ~/.local/bin /sbin ~/apps
 ## If you use virtualenv, you will probably need to disable the default
 ## virtualenv prompt, since it doesn't play nice with fish:
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
@@ -49,7 +49,7 @@ set -g theme_color_group FF0000
 set -g theme_color_host brpurple
 set -g theme_color_separator brpurple
 set -g __fish_git_prompt_color_branch brgreen
-set -g theme_display_time_format '+%H:%M:%S'
+set -g theme_display_time_format '+%b %d, %H:%M:%S'
 set -g theme_prompt_userhost_separator '@'
 set -g __fish_git_prompt_char_branch_begin         ''
 set -g __fish_git_prompt_char_branch_end           ''
