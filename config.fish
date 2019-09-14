@@ -35,7 +35,7 @@ abbr -a prpm pipenv run python manage.py
 alias vim="nvim"
 alias vi="nvim"
 
-bash ~/.config/fish/start_tmux_session.sh
+#bash ~/.config/fish/start_tmux_session.sh
 
 # Kawasaki Theme customization by lecovi
 set -g theme_display_rw no
