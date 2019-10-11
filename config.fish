@@ -30,6 +30,14 @@ abbr -a spo sudo poweroff
 abbr -a pei pipenv install --three
 abbr -a per pipenv run
 abbr -a prpm pipenv run python manage.py
+abbr -a dps docker ps -a
+abbr -a dc docker-compose
+abbr -a dcu docker-compose up
+abbr -a dce docker-compose exec
+abbr -a xrr xrandr --auto
+abbr -a xrp xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1
+abbr -a xrm xrandr --auto --output HDMI-1 --mode 1280x1024 --right-of eDP-1
+
 
 #eval (pipenv --completion)
 alias vim="nvim"
