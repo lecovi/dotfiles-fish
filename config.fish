@@ -20,6 +20,11 @@ set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 #set -x ANDROID_HOME ~/Android/Sdk
 #set -x PATH $PATH $ANDROID_HOME/tools $ANDROID_HOME/platform-tools
 
+## pyenv
+set -x PATH ~/.pyenv/bin $PATH
+pyenv init - | source
+pyenv virtualenv-init - | source
+
 abbr -a gcam git commit -a -m
 abbr -a gcm git commit -m
 abbr -a gcl git clone --recursive
