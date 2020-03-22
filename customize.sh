@@ -13,6 +13,10 @@ omf install https://github.com/jhillyerd/plugin-git
 
 echo -e $YELLOW"Installing ssh-agent plugin with Fisherman"$RESET
 fisher install virtualxdriver/ssh-agent.fish.git
+# SSH agent needs to start at least once
+set -l lifetime
+echo "Starting ssh-agent..."
+source (/usr/bin/env ssh-agent -s $lifetime | sed 's/\([^=]*\)=\([^;]*\);.*/set -xU \1 \2/' | psub)
 
 echo -e $YELLOW"Linking config file"$RESET
 if test -e $HOME/.config/fish/config.fish
