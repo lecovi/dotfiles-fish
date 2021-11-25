@@ -12,7 +12,7 @@ echo -e $YELLOW"Installing git-plugin with OMF"$RESET
 omf install https://github.com/jhillyerd/plugin-git
 
 echo -e $YELLOW"Installing ssh-agent plugin with Fisherman"$RESET
-fisher install virtualxdriver/ssh-agent.fish.git
+fisher install virtualxdriver/ssh-agent.fish
 # SSH agent needs to start at least once
 set -l lifetime
 echo "Starting ssh-agent..."

@@ -9,10 +9,13 @@ set BOLD_RED '\e[1;31m'
 set BOLD_GREEN '\e[1;32m'
 
 echo -e $YELLOW"Installing Oh-My-Fish"$RESET
-curl -L https://get.oh-my.fish > omf.sh
-fish omf.sh --noninteractive
+echo curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+echo install
+install
 
 echo -e $YELLOW"Installing Fisherman"$RESET
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+echo curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 
 echo -e $BOLD_GREEN"Succesfully installed! Please close this terminal, login again and run 'customize.sh'"$RESET
