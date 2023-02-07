@@ -1,1 +1,4 @@
 install
+config.fish
+config.fish.bak
+test.sh
