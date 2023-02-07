@@ -5,9 +5,9 @@ set -gx PATH $PATH ~/.local/bin /sbin
 
 ## If you use virtualenv, you will probably need to disable the default
 ## virtualenv prompt, since it doesn't play nice with fish:
-set -x VIRTUAL_ENV_DISABLE_PROMPT 1
+#set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 ## Setting virtualenv directory
-set -x WORKON_HOME ~/.virtualenvs
+#set -x WORKON_HOME ~/.virtualenvs
 
 # Kawasaki Theme customization by lecovi
 set -g theme_display_rw no
@@ -27,6 +27,11 @@ set -g __fish_git_prompt_char_branch_begin         ''
 set -g __fish_git_prompt_char_branch_end           ''
 set -g __fish_git_prompt_color_branch_begin        bryellow
 set -g __fish_git_prompt_color_branch_end          bryellow
+
+
+###############################################################################
+## Abbreviations
+###############################################################################
 
 abbr -a spo sudo poweroff
 
@@ -48,25 +53,39 @@ abbr -a dce docker-compose exec
 ###############################################################################
 ### XRANDR
 ###############################################################################
-abbr -a xrr xrandr --auto
-abbr -a xrp xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1
-abbr -a xrm xrandr --auto --output HDMI-1 --mode 1280x1024 --right-of eDP-1
+#abbr -a xrr xrandr --auto
+#abbr -a xrp xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1
+#abbr -a xrm xrandr --auto --output HDMI-1 --mode 1280x1024 --right-of eDP-1
 
 ###############################################################################
 ## PIPENV
 ###############################################################################
 ## Use this version of Python when creating new virtual environments
-set -x PIPENV_DEFAULT_PYTHON_VERSION 3
+#set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 ## Always use fancy mode when invoking pipenv shell
 #set -x PIPENV_SHELL_FANCY 1
 ## Set this to have .venv/ directory inside project
 #set -x PIPENV_VENV_IN_PROJECT 1
-abbr -a pei pipenv install --three
-abbr -a per pipenv run
-abbr -a prpm pipenv run python manage.py
+#abbr -a pei pipenv install --three
+#abbr -a per pipenv run
+#abbr -a prpm pipenv run python manage.py
 
 ###############################################################################
 ## VAGRANT
 ###############################################################################
-set -x VAGRANT_DEFAULT_PROVIDER virtualbox
+#set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 
+###############################################################################
+## VIRTUALENVS
+###############################################################################
+set CREATE_VENV_CMD "python3 -m venv venv && source venv/bin/activate.fish && python -m pip install --upgrade pip setuptools"
+set RM_VENV_CMD "deactivate && rm -rf venv"
+
+abbr -a cve $CREATE_VENV_CMD
+abbr -a rve $RM_VENV_CMD
+
+###############################################################################
+## PYTHON
+###############################################################################
+
+abbr -a py python3
