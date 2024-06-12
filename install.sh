@@ -14,52 +14,65 @@ detect_debian_version () {
     DEBIAN_VERSION=${DEBIAN_VERSION[0]}
 }
 
-detect_linux_distro () {
-    # We get which Linux version we are using for setting proper Package Manager
-    RELEASE=$(cat /etc/os-release | grep "^ID=")
-    IFS='=' read -ra RELEASE <<< "$RELEASE"
-    RELEASE=${RELEASE[1]}
+detect_nix_distro () {
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        echo "Este script se está ejecutando en macOS"
+        INSTALL_FISH_CMD='brew install fish'
+        RELEASE='macOS'
+    else
+        # We get which Linux version we are using for setting proper Package Manager
+        RELEASE=$(cat /etc/os-release | grep "^ID=")
+        IFS='=' read -ra RELEASE <<< "$RELEASE"
+        RELEASE=${RELEASE[1]}
+        echo "Este script se está ejecutando en Linux"
 
-    case $RELEASE in
-        fedora)
-            INSTALL_FISH_CMD='dnf install fish'
-            ;;
-        manjaro | arch)
-            INSTALL_FISH_CMD='pacman -S fish'
-            ;;
-        debian)
-            detect_debian_version
-            echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_'${DEBIAN_VERSION}'.0/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
-            if [ $DEBIAN_VERSION = '9' ]
-            then
-                wget https://download.opensuse.org/repositories/shells:fish:release:3/Debian_9.0/Release.key -O Release.key
-            else
-                wget https://download.opensuse.org/repositories/shells:fish:release:3/Debian_10/Release.key -O Release.key
-            fi
-            sudo apt-key add - < Release.key
-            sudo apt update
-            INSTALL_FISH_CMD='apt install -y fish'
-            ;;
-        *)
-            echo -e $BOLD_RED"Not supported GNU/Linux distro"$RESET
-            exit 1
-            ;;
-    esac
-
-    echo -e "You are using $BOLD_GREEN'$RELEASE'$RESET GNU/Linux"
+        case $RELEASE in
+            fedora)
+                INSTALL_FISH_CMD='dnf install fish'
+                ;;
+            manjaro | arch)
+                INSTALL_FISH_CMD='pacman -S fish'
+                ;;
+            debian)
+                detect_debian_version
+                echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_'${DEBIAN_VERSION}'.0/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
+                if [ $DEBIAN_VERSION = '9' ]
+                then
+                    wget https://download.opensuse.org/repositories/shells:fish:release:3/Debian_9.0/Release.key -O Release.key
+                else
+                    wget https://download.opensuse.org/repositories/shells:fish:release:3/Debian_10/Release.key -O Release.key
+                fi
+                sudo apt-key add - < Release.key
+                sudo apt update
+                INSTALL_FISH_CMD='apt install -y fish'
+                ;;
+            *)
+                echo -e $BOLD_RED"Not supported GNU/Linux distro"$RESET
+                exit 1
+                ;;
+        esac
+    fi
+    echo -e "You are using $BOLD_GREEN'$RELEASE'$RESET"
 }
 
 #TODO: check sudo access
 #TODO: check run as normal user
 
+if command -v fish >/dev/null 2>&1; then
+    echo "Fish está instalado"
+else
+    echo "Fish no está instalado"
+    echo -e $YELLOW"Detecting *nix distro"$RESET
+    detect_nix_distro
 
-echo -e $YELLOW"Detecting GNU/Linux distro"$RESET
-detect_linux_distro
-
-echo -e $YELLOW"Installing FISH the Friendly Interactive Shell"$RESET
-sudo $INSTALL_FISH_CMD
+    echo -e $YELLOW"Installing FISH the Friendly Interactive Shell"$RESET
+    sudo $INSTALL_FISH_CMD
+fi
 
 echo -e $YELLOW"Setting Fish as default shell, please provide your password"$RESET
+if [ "$RELEASE" == "macos" ]; then
+    sudo bash -c 'echo $(which fish) >> /etc/shells'
+fi
 chsh -s /usr/bin/fish
 
 echo -e $YELLOW"Customizing FISH"$RESET
