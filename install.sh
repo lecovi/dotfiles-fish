@@ -73,7 +73,7 @@ echo -e $YELLOW"Setting Fish as default shell, please provide your password"$RES
 if [ "$RELEASE" == "macos" ]; then
     sudo bash -c 'echo $(which fish) >> /etc/shells'
 fi
-chsh -s /usr/bin/fish
+chsh -s $(which fish)
 
 echo -e $YELLOW"Customizing FISH"$RESET
 #./customize.sh
