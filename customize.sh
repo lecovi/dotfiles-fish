@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-# BASH COLORS
+# COLORS
 set RESET '\e[0m'
 set RED '\e[31m'
 set GREEN '\e[32m'
@@ -14,7 +14,7 @@ echo -e $BOLD_WHITE"  - git-plugin with Fisherman"$RESET
 echo -e $BOLD_WHITE"  - ssh-agent with Fisherman"$RESET
 echo -e $BOLD_WHITE"  - copy config.fish from config.fish.base"$RESET
 echo -e $BOLD_WHITE"  - Kawasaki theme for OMF"$RESET
-echo -e $BOLD_WHITE"  - Android SDK variables"$RESET
+echo -e $BOLD_WHITE"  - Android SDK variables (if installed)"$RESET
 echo -e $BOLD_WHITE"  - Pyenv init"$RESET
 echo -e $BOLD_WHITE"  - Abrevations for GNU/Linux package managers (DNF|APT)"$RESET
 echo -e $BOLD_WHITE"  - NeoVim abbreviations"$RESET
@@ -34,7 +34,7 @@ set -l OMF_THEME kawasaki
 set -l OMF_DEFAULT_THEME (string match -r $OMF_THEME $_OMF_DEFAULT_THEME_LINE[2])
 
 
-## git-plugin with Fisherman
+## Install git-plugin with Fisherman
 if contains $GIT_PLUGIN $_FISHER_PLUGIN_LIST;
     echo -e $RED"git-plugin: $GIT_PLUGIN already installed"$RESET
 else
@@ -43,7 +43,7 @@ else
 end
 
 
-## ssh-agent with Fisherman
+## Install ssh-agent with Fisherman
 if contains $SSH_AGENT_PLUGIN $_FISHER_PLUGIN_LIST;\
     echo -e $RED"ssh-agent: $SSH_AGENT_PLUGIN already installed"$RESET
 else
@@ -77,8 +77,19 @@ else
     end
 end
 
+# Add Homebrew to PATH if MacOS
+switch (uname)
+    case Darwin
+        echo '''
+## Added Homebrew to PATH
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
+''' >> config.fish
+    case '*'
+            echo -e $YELLOW"Homebrew not installed"$RESET
+end
 
-## Kawasaki theme for OMF
+
+## Install Kawasaki theme for OMF
 if  contains $OMF_THEME $OMF_DEFAULT_THEME
     echo -e $RED"OMG Theme: $OMF_THEME Already installed"$RESET
 else
@@ -104,6 +115,8 @@ end
 ## Pyenv
 if type -q pyenv
     set -Ux PYENV_ROOT $HOME/.pyenv
+    # TODO check if pyenv is already in PATH
+    # TODO check if virtualenv-init is already in PATH
     fish_add_path $PYENV_ROOT/bin
     echo '''
 ###############################################################################
@@ -146,11 +159,11 @@ abbr -a sas sudo apt search
                 echo -e $RED"Unsupported GNU/Linux"$RESET
         end
     case Darwin
-            echo You are using MacOS, use brew!
+            echo -e $BOLD_WHITE"You are using MacOS, use brew. No Aliases for brew installed!"$RESET
     case FreeBSD NetBSD DragonFly
-            echo Hi Beastie!
+            echo $YELLOW"Hi Beastie!"$RESET
     case '*'
-            echo Hi, stranger!
+            echo $RED"Hi, stranger!"$RESET
 end
 
 ## NeoVim abbreviations
@@ -165,6 +178,7 @@ alias vi="nvim"
 else
     echo -e $RED"NeoVim not installed! WTF!?"$RESET
 end
+
 
 echo -e $BOLD_GREEN"Finished! Please logout and re-login"$RESET
 echo -e $BOLD_GREEN"If you wanna change config, please update the config.fish in this directory"$RESET

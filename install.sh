@@ -55,8 +55,35 @@ detect_nix_distro () {
     echo -e "You are using $BOLD_GREEN'$RELEASE'$RESET"
 }
 
-#TODO: check sudo access
-#TODO: check run as normal user
+has_sudo() {
+    local prompt
+
+    prompt=$(sudo -nv 2>&1)
+    if [ $? -eq 0 ]; then
+    echo "has_sudo__pass_set"
+    elif echo $prompt | grep -q '^sudo:'; then
+    echo "has_sudo__needs_pass"
+    else
+    echo "no_sudo"
+    fi
+}
+
+echo -e $YELLOW"Checking if user is sudoer"$RESET
+case "$HAS_SUDO" in
+    has_sudo__pass_set)
+    has_sudo__needs_pass)
+        echo $BOLD_GREEN"User has sudo privileges"$RESET
+        ;;
+    *)
+        echo $BOLD_RED"Please make sure you have 'sudo' privileges. This script need it to add fish as a standard shell with the following command: \"sudo -c 'echo $(which fish) >> /etc/shells' \""$RESET
+        exit 1
+        ;;
+    esac
+
+if [ $EUID -eq 0 || $UID -eq  0 ]; then
+    echo $BOLD_RED"This script shouldn't be run as root."$RESET
+    exit 1
+fi
 
 if command -v fish >/dev/null 2>&1; then
     echo "Fish está instalado"
@@ -75,12 +102,4 @@ if [ "$RELEASE" == "macos" ]; then
 fi
 chsh -s $(which fish)
 
-echo -e $YELLOW"Customizing FISH"$RESET
-#./customize.sh
-#echo -e $YELLOW"Installing ssh-agent plugin with Fisherman"$RESET
-#fisher install virtualxdriver/ssh-agent.fish.git
-#
-#echo -e $YELLOW"Installing Kawasaki theme with OMF"$RESET
-#omf theme Kawasaki
-#
 echo -e $BOLD_GREEN"Succesfully installed! Please close this terminal, login again and run 'omf_fisher.sh'"$RESET
